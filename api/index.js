@@ -59,7 +59,7 @@ const router = express.Router();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "..")));
 
 function normalizeHistory(history) {
   if (!Array.isArray(history)) {
@@ -615,11 +615,15 @@ router.post("/chat", async (req, res) => {
 app.use("/api", router);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "..", "index.html"));
 });
 
-const host = "0.0.0.0";
-app.listen(port, host, () => {
-  console.log(`Saathi AI server running on http://localhost:${port}`);
-  console.log(`To access from mobile, use your computer's IP address (e.g., http://10.14.130.66:${port})`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  const host = "0.0.0.0";
+  app.listen(port, host, () => {
+    console.log(`Saathi AI server running on http://localhost:${port}`);
+    console.log(`To access from mobile, use your computer's IP address (e.g., http://10.14.130.66:${port})`);
+  });
+}
+
+module.exports = app;
