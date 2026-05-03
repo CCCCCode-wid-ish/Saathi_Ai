@@ -1,3 +1,7 @@
+🌐 Live Demo 
+
+🚀 Try Saathi AI -your Voice Campanion here: 👉 [Open Saathi AI](https://hackp-11.vercel.app/)
+
 Your Soulful AI Friend
 
 Experience Saathi: The first truly empathetic AI that understands your emotions, protects your privacy, and stays by your side.
