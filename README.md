@@ -1,6 +1,12 @@
 🌐 Live Demo 
 
+
 🚀 Try Saathi AI -your Voice Campanion here: 👉 [Open Saathi AI](https://hackp-11.vercel.app/)
+⏳ The application may take up to 5 seconds to load on first open.
+✅ After First Load
+The app becomes fast and responsive
+Subsequent interactions are near real-time ⚡
+
 
 Your Soulful AI Friend
 
