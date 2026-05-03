@@ -1,0 +1,58 @@
+const EMOTION_THEMES = {
+  calm: {
+    label: "Calm 😌",
+    bg: "bg-blue-950",
+    border: "border-blue-500",
+    badge: "bg-blue-900 text-blue-300 border-blue-700",
+    glow: "shadow-blue-500/30",
+    accentHex: "#3b82f6",
+    accentRgb: "59, 130, 246",
+  },
+  stressed: {
+    label: "Stressed 😟",
+    bg: "bg-red-950",
+    border: "border-red-500",
+    badge: "bg-red-900 text-red-300 border-red-700",
+    glow: "shadow-red-500/30",
+    accentHex: "#ef4444",
+    accentRgb: "239, 68, 68",
+  },
+  sad: {
+    label: "Sad 💙",
+    bg: "bg-purple-950",
+    border: "border-purple-400",
+    badge: "bg-purple-900 text-purple-300 border-purple-700",
+    glow: "shadow-purple-500/30",
+    accentHex: "#a78bfa",
+    accentRgb: "167, 139, 250",
+  },
+  angry: {
+    label: "Frustrated 😤",
+    bg: "bg-orange-950",
+    border: "border-orange-500",
+    badge: "bg-orange-900 text-orange-300 border-orange-700",
+    glow: "shadow-orange-500/30",
+    accentHex: "#f97316",
+    accentRgb: "249, 115, 22",
+  },
+  happy: {
+    label: "Happy 😊",
+    bg: "bg-green-950",
+    border: "border-green-500",
+    badge: "bg-green-900 text-green-300 border-green-700",
+    glow: "shadow-green-500/30",
+    accentHex: "#22c55e",
+    accentRgb: "34, 197, 94",
+  },
+  crisis: {
+    label: "Need Support 🤍",
+    bg: "bg-slate-950",
+    border: "border-slate-400",
+    badge: "bg-slate-800 text-slate-300 border-slate-600",
+    glow: "shadow-slate-500/30",
+    accentHex: "#94a3b8",
+    accentRgb: "148, 163, 184",
+  },
+};
+
+window.emotionTheme = { EMOTION_THEMES };

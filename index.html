@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saathi AI - Voice Companion</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      href="https://cdn-icons-png.flaticon.com/512/8636/8636831.png"
+    />
+    <meta name="theme-color" content="#22c55e" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+              body: ["DM Sans", "sans-serif"],
+            },
+            keyframes: {
+              ringPulse: {
+                "0%": { transform: "scale(0.9)", opacity: "0.55" },
+                "75%": { transform: "scale(1.7)", opacity: "0" },
+                "100%": { transform: "scale(1.7)", opacity: "0" },
+              },
+              riseFade: {
+                "0%": { opacity: "0", transform: "translateY(14px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              actionFade: {
+                "0%": { opacity: "0", transform: "translateY(8px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              ringPulse: "ringPulse 1.8s ease-out infinite",
+              riseFade: "riseFade 0.45s ease forwards",
+              actionFade: "actionFade 0.45s ease forwards",
+            },
+            boxShadow: {
+              ambient: "0 22px 70px rgba(0, 0, 0, 0.34)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --accent-rgb: 34, 197, 94;
+        --accent-solid: #22c55e;
+        --accent-soft: rgba(34, 197, 94, 0.18);
+        --accent-border: rgba(34, 197, 94, 0.38);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: #e5eef8;
+        background:
+          radial-gradient(
+            circle at top,
+            rgba(var(--accent-rgb), 0.2),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(148, 163, 184, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #0a0d14 0%, #0d1420 50%, #0b1120 100%);
+        transition:
+          background 0.5s ease,
+          color 0.5s ease;
+      }
+
+      .surface {
+        background: rgba(10, 13, 20, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        backdrop-filter: blur(18px);
+      }
+
+      .accent-border {
+        border-color: var(--accent-border);
+      }
+
+      .accent-bg {
+        background: var(--accent-soft);
+      }
+
+      .accent-text {
+        color: var(--accent-solid);
+      }
+
+      .accent-shadow {
+        box-shadow:
+          0 0 0 1px rgba(var(--accent-rgb), 0.3),
+          0 0 28px rgba(var(--accent-rgb), 0.24),
+          0 18px 48px rgba(0, 0, 0, 0.36);
+      }
+
+      .thin-line {
+        background: linear-gradient(
+          90deg,
+          rgba(var(--accent-rgb), 0.2),
+          rgba(var(--accent-rgb), 0.9),
+          rgba(var(--accent-rgb), 0.2)
+        );
+      }
+
+      .filler-text {
+        transition: opacity 150ms ease-out;
+      }
+      .filler-text.transitioning {
+        opacity: 0;
+      }
+      .response-text {
+        animation: fadeSlideUp 300ms ease-out forwards;
+      }
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="font-body">
+    <div
+      id="root"
+      style="
+        padding: 24px;
+        color: #e5eef8;
+        font-family: &quot;DM Sans&quot;, sans-serif;
+      "
+    >
+      Loading Saathi AI...
+    </div>
+
+    <script>
+      function renderStartupError(message) {
+        var root = document.getElementById("root");
+        if (!root) return;
+
+        root.innerHTML =
+          '<div style="max-width: 760px; margin: 40px auto; padding: 20px; border-radius: 20px; border: 1px solid rgba(248, 113, 113, 0.35); background: rgba(127, 29, 29, 0.28); color: #fee2e2; box-shadow: 0 18px 48px rgba(0,0,0,0.35);">' +
+          '<div style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #fecaca; font-weight: 700;">Startup Error</div>' +
+          '<h1 style="margin: 12px 0 8px; font-size: 28px; line-height: 1.2; color: white;">Saathi AI could not load</h1>' +
+          '<p style="margin: 0 0 12px; line-height: 1.6;">The page HTML loaded, but a browser script failed before the app could render.</p>' +
+          '<pre style="white-space: pre-wrap; word-break: break-word; margin: 0; padding: 14px; border-radius: 14px; background: rgba(15, 23, 42, 0.72); color: #fde68a;">' +
+          String(message || "Unknown startup error") +
+          "</pre>" +
+          "</div>";
+      }
+
+      window.addEventListener("error", function (event) {
+        renderStartupError(event.message || "Unknown script error");
+      });
+
+      window.addEventListener("unhandledrejection", function (event) {
+        var reason = event.reason;
+        var message =
+          (reason && reason.message) ||
+          (typeof reason === "string" ? reason : "Unhandled promise rejection");
+        renderStartupError(message);
+      });
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").then(
+            (registration) => {
+              console.log("SW registered:", registration);
+            },
+            (err) => {
+              console.log("SW registration failed:", err);
+            },
+          );
+        });
+      }
+    </script>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest"></script>
+    <script type="text/babel" src="./constants/sourceUrls.js"></script>
+    <script type="text/babel" src="./components/ConfidenceTag.jsx"></script>
+    <script type="text/babel" src="./emotionEngine.js"></script>
+    <script type="text/babel" src="./EmotionContext.jsx"></script>
+    <script type="text/babel" src="./emotionTheme.js"></script>
+    <script type="text/babel" src="./privacyEngine.js"></script>
+    <script type="text/babel" src="./storageManager.js"></script>
+    <script type="text/babel" src="./safetyEngine.js"></script>
+    <script type="text/babel" src="./responseAdapter.js"></script>
+    <script type="text/babel" src="./interruptEngine.js"></script>
+    <script type="text/babel" src="./voiceAdapter.js"></script>
+    <script type="text/babel" src="./SupportSuggestion.jsx"></script>
+    <script type="text/babel" src="./PrivacyShield.jsx"></script>
+    <script type="text/babel" src="./TransparencyPanel.jsx"></script>
+    <script type="text/babel" src="./SafetyFlag.jsx"></script>
+    <script type="text/babel" src="./personality.js"></script>
+    <script type="text/babel" src="./responseLibrary.js"></script>
+    <script type="text/babel" src="./responseSelector.js"></script>
+    <script type="text/babel" src="./fillerSystem.js"></script>
+    <script type="text/babel" src="./handoffEngine.js"></script>
+    <script type="text/babel" src="./actionEngine.js"></script>
+    <script type="text/babel" src="./components/ActionButtons.jsx"></script>
+    <script type="text/babel" src="./components/HandoffPrompt.jsx"></script>
+    <script type="text/babel" src="./voicePersonality.js"></script>
+    <script type="text/babel" src="./StopButton.jsx"></script>
+    <script type="text/babel" src="./app.jsx"></script>
+  </body>
+</html>
