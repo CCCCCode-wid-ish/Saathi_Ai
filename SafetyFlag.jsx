@@ -6,6 +6,7 @@ function SafetyFlag({ analysisResult }) {
   if (!analysisResult || !analysisResult.isFlagged || dismissed) {
     return null;
   }
+  //
 
   return (
     <div

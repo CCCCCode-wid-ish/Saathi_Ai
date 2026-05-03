@@ -4,6 +4,7 @@ const SpeechController = {
   listeners: new Set(),
 
   notify() {
+    //Interupt
     this.listeners.forEach((listener) => {
       try {
         listener(this.isSpeaking);
